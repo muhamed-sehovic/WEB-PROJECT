@@ -1,0 +1,98 @@
+<!-- Page content-->
+<section class="py-5">
+    <div class="container px-5">
+        <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+            <div class="text-center mb-5">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                <h1 class="fw-bolder">Studio Reservation</h1>
+                <p class="lead fw-normal text-muted mb-0">Book your session now</p>
+            </div>
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    <form id="reservationForm">
+                        <!-- Name input-->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="reservationName" type="text" placeholder="Enter your name..." required />
+                            <label for="reservationName">First Name</label>
+                            <div class="invalid-feedback">A first name is required.</div>
+                        </div>
+                        <!-- Surname input-->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="reservationSurname" type="text" placeholder="Enter your surname..." required />
+                            <label for="reservationSurname">Last Name</label>
+                            <div class="invalid-feedback">A last name is required.</div>
+                        </div>
+                        <!-- Email input-->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="reservationEmail" type="email" placeholder="name@example.com" required />
+                            <label for="reservationEmail">Email</label>
+                            <div class="invalid-feedback">A valid email is required.</div>
+                        </div>
+                        <!-- Phone input-->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="reservationPhone" type="tel" placeholder="(123) 456-7890" required />
+                            <label for="reservationPhone">Phone Number</label>
+                            <div class="invalid-feedback">A phone number is required.</div>
+                        </div>
+                        <!-- Category selection -->
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="reservationCategory" required>
+                                <option value="" disabled selected>Select a category</option>
+                                <option value="Professional Recording">Professional Recording</option>
+                                <option value="Mixing & Mastering">Mixing & Mastering</option>
+                                <option value="Rehearsal Space">Rehearsal Space</option>
+                                <option value="Podcast & Voiceover Recording">Podcast & Voiceover Recording</option>
+                            </select>
+                            <label for="reservationCategory">Select a Category</label>
+                            <div class="invalid-feedback">Please select a category.</div>
+                        </div>
+                        <!-- Date input-->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="reservationDate" type="date" required />
+                            <label for="reservationDate">Select Date</label>
+                            <div class="invalid-feedback">A reservation date is required.</div>
+                        </div>
+                        <!-- Time input-->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="reservationTime" type="time" required />
+                            <label for="reservationTime">Select Time</label>
+                            <div class="invalid-feedback">A reservation time is required.</div>
+                        </div>
+                        <!-- Checkbox -->
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" id="includeEngineer" type="checkbox" />
+                            <label class="form-check-label" for="includeEngineer">Include Sound Engineer</label>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-lg" id="reservationSubmitButton" type="submit">Reserve Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Google Maps Location -->
+        <div class="text-center mb-5">
+            <h2 class="fw-bolder">Our Location</h2>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509577!2d144.9559283155046!3d-37.81720974202167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5df1c6e2f7%3A0x5045675218ce6e0!2sMelbourne%20CBD!5e0!3m2!1sen!2sau!4v1611819944691!5m2!1sen!2sau"
+                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        
+        <!-- Contact Us -->
+        <div class="text-center">
+            <div class="h6 fw-bolder">Contact Us</div>
+            <p class="text-muted mb-4">
+                Contact us at <br />
+                <a href="mailto:support@musicstudiom.com">support@musicstudiom.com</a>
+            </p>
+            <div class="h6 fw-bolder">Follow us</div>
+            <a class="fs-5 px-2 link-dark" href="https://x.com/"><i class="bi bi-twitter-x"></i></a>
+            <a class="fs-5 px-2 link-dark" href="https://www.facebook.com/"><i class="bi-facebook"></i></a>
+            <a class="fs-5 px-2 link-dark" href="https://ba.linkedin.com/"><i class="bi-linkedin"></i></a>
+            <a class="fs-5 px-2 link-dark" href="https://www.youtube.com/"><i class="bi-youtube"></i></a>
+        </div>
+    </div>
+</section>
