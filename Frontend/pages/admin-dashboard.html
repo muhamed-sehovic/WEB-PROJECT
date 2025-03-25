@@ -1,0 +1,260 @@
+<!-- Admin Dashboard Section -->
+<section id="admin-dashboard">
+    <div class="container px-5 py-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="text-center">Admin Dashboard</h2>
+            <button id="logoutAdminBtn" class="btn btn-danger">Log Out</button>
+        </div>
+        <p class="text-center">Manage users, reservations, and equipment.</p>
+
+        <div class="row">
+            <!-- Users Section -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">User Management</h5>
+                        <p class="card-text">Manage user accounts.</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">Add User</button>
+                        <button class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#userCollapse">See Users</button>
+                        <div id="userCollapse" class="collapse mt-3">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between">John Doe - johndoe@email.com
+                                    <div>
+                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button>
+                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#removeUserModal">Remove</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reservations Section -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Reservations</h5>
+                        <p class="card-text">Manage studio reservations.</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReservationModal">Add Reservation</button>
+                        <button class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#reservationsCollapse">See Reservations</button>
+                        <div id="reservationsCollapse" class="collapse mt-3">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between">Studio A - March 20, 2025
+                                    <div>
+                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editReservationModal">Edit</button>
+                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#removeReservationModal">Remove</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Equipment Section -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Equipment</h5>
+                        <p class="card-text">Manage studio equipment.</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEquipmentModal">Add Equipment</button>
+                        <button class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#equipmentCollapse">See Equipment</button>
+                        <div id="equipmentCollapse" class="collapse mt-3">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between">Shure SM7B - Microphone
+                                    <div>
+                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editEquipmentModal">Edit</button>
+                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#removeEquipmentModal">Remove</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mb-2" placeholder="First Name">
+                <input type="text" class="form-control mb-2" placeholder="Last Name">
+                <input type="email" class="form-control mb-2" placeholder="Email">
+                <input type="text" class="form-control mb-2" placeholder="Phone">
+                <input type="text" class="form-control mb-2" placeholder="Address">
+                <button class="btn btn-success w-100" onclick="addUser()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mb-2" placeholder="First Name">
+                <input type="text" class="form-control mb-2" placeholder="Last Name">
+                <input type="email" class="form-control mb-2" placeholder="Email">
+                <button class="btn btn-success w-100" onclick="editUser()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Remove User Modal -->
+<div class="modal fade" id="removeUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Removal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove this user?</p>
+                <button class="btn btn-danger w-100" onclick="removeUser()">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Add Reservation Modal -->
+<div class="modal fade" id="addReservationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mb-2" placeholder="Name">
+                <input type="text" class="form-control mb-2" placeholder="Surname">
+                <input type="text" class="form-control mb-2" placeholder="Phone">
+                <select class="form-control mb-2">
+                    <option>Professional Recording</option>
+                    <option>Mixing & Mastering</option>
+                    <option>Rehearsal Space</option>
+                    <option>Podcast & Voiceover Recording</option>
+                </select>
+                <input type="date" class="form-control mb-2">
+                <input type="time" class="form-control mb-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="includeEngineer">
+                    <label class="form-check-label" for="includeEngineer">Include Sound Engineer</label>
+                </div>
+                <button class="btn btn-success w-100" onclick="addReservation()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Reservation Modal -->
+<div class="modal fade" id="editReservationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mb-2" placeholder="Name">
+                <input type="text" class="form-control mb-2" placeholder="Surname">
+                <input type="text" class="form-control mb-2" placeholder="Phone">
+                <select class="form-control mb-2">
+                    <option>Professional Recording</option>
+                    <option>Mixing & Mastering</option>
+                    <option>Rehearsal Space</option>
+                    <option>Podcast & Voiceover Recording</option>
+                </select>
+                <input type="date" class="form-control mb-2">
+                <input type="time" class="form-control mb-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="includeEngineer">
+                    <label class="form-check-label" for="includeEngineer">Include Sound Engineer</label>
+                </div>
+                <button class="btn btn-success w-100" onclick="editReservation()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Remove Reservation Modal -->
+<div class="modal fade" id="removeReservationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Removal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove this reservation?</p>
+                <button class="btn btn-danger w-100" onclick="removeReservation()">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Equipment Modal -->
+<div class="modal fade" id="addEquipmentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Equipment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mb-2" placeholder="Name">
+                <input type="text" class="form-control mb-2" placeholder="Category">
+                <input type="text" class="form-control mb-2" placeholder="Short Description">
+                <button class="btn btn-success w-100" onclick="addEquipment()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Equipment Modal -->
+<div class="modal fade" id="editEquipmentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Equipment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mb-2" placeholder="Name">
+                <input type="text" class="form-control mb-2" placeholder="Category">
+                <input type="text" class="form-control mb-2" placeholder="Short Description">
+                <button class="btn btn-success w-100" onclick="editEquipment()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Remove Equipment Modal -->
+<div class="modal fade" id="removeEquipmentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Removal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove this equipment?</p>
+                <button class="btn btn-danger w-100" onclick="removeEquipment()">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>

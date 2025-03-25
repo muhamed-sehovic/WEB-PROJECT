@@ -1,0 +1,231 @@
+<section id="customer-dashboard">
+    <div class="container px-5 py-5">
+        <h2 class="text-center">Customer Dashboard</h2>
+        <p class="text-center">Manage your reservations, update your profile, and stay connected.</p>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card mb-4 p-4 text-center">
+                    <h4>Welcome Back!</h4>
+                    <p>Check your upcoming reservations, update your profile, and manage your account easily.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">My Reservations</h5>
+                        <p class="card-text">View and manage your studio bookings.</p>
+                        <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#reservationsCollapse">View Reservations</button>
+                        <!-- Add buttons for Make and Update Reservation -->
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#makeReservationModal">Make a Reservation</button>
+                        
+                        <div id="reservationsCollapse" class="collapse mt-3">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#reservationModal1">Studio A - March 20, 2025</a>
+                                <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#reservationModal2">Studio B - April 5, 2025</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile Settings</h5>
+                        <p class="card-text">Update your personal information and preferences.</p>
+                        <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#profileCollapse">Edit Profile</button>
+                        <div id="profileCollapse" class="collapse mt-3">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name" value="John Doe">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" value="johndoe@email.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="text" class="form-control" id="phone" value="+123456789">
+                                </div>
+                                <button type="button" class="btn btn-success" onclick="saveProfile()">Save Changes</button>
+                                <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#deactivateProfileModal">Deactivate</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logout Button -->
+        <div class="text-center mt-4">
+            <button id="logoutBtn" class="btn btn-danger">Log Out</button>
+        </div>
+    </div>
+</section>
+
+<!-- Reservation Modals -->
+<div class="modal fade" id="reservationModal1" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Studio A - March 20, 2025</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Date:</strong> March 22, 2025</p>
+                <p><strong>Time:</strong> 3:00 PM - 6:00 PM</p>
+                <p><strong>Studio:</strong> Studio A - Recording Room</p>
+                <p><strong>Services:</strong> Sound Engineer Included</p>
+                <p><strong>Price:</strong> $150</p>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel Reservation</button>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateReservationModal">Update Reservation</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="reservationModal2" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Studio B - April 5, 2025</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Date:</strong> March 25, 2025</p>
+                <p><strong>Time:</strong> 1:00 PM - 4:00 PM</p>
+                <p><strong>Studio:</strong> Studio B - Mixing Room</p>
+                <p><strong>Services:</strong> Self-Service (No Engineer)</p>
+                <p><strong>Price:</strong> $100</p>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel Reservation</button>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateReservationModal">Update Reservation</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Reservation Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cancel Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to cancel this reservation?</p>
+                <button class="btn btn-danger" onclick="cancelReservation()">Confirm Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Make Reservation Modal -->
+<div class="modal fade" id="makeReservationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Make a New Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="makeReservationForm">
+                    <!-- Date input -->
+                    <div class="mb-3">
+                        <label for="makeReservationDate" class="form-label">Select Date</label>
+                        <input type="date" class="form-control" id="makeReservationDate" required>
+                    </div>
+                    <!-- Time input -->
+                    <div class="mb-3">
+                        <label for="makeReservationTime" class="form-label">Select Time</label>
+                        <input type="time" class="form-control" id="makeReservationTime" required>
+                    </div>
+                    <!-- Category selection -->
+                    <div class="mb-3">
+                        <label for="makeReservationCategory" class="form-label">Select a Category</label>
+                        <select class="form-select" id="makeReservationCategory" required>
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="Professional Recording">Professional Recording</option>
+                            <option value="Mixing & Mastering">Mixing & Mastering</option>
+                            <option value="Rehearsal Space">Rehearsal Space</option>
+                            <option value="Podcast & Voiceover Recording">Podcast & Voiceover Recording</option>
+                        </select>
+                    </div>
+                    <!-- Include Sound Engineer Checkbox -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="makeIncludeEngineer">
+                        <label class="form-check-label" for="makeIncludeEngineer">Include Sound Engineer</label>
+                    </div>
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary" onclick="makeReservation()">Confirm Reservation</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Reservation Modal -->
+<div class="modal fade" id="updateReservationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateReservationForm">
+                    <!-- Date input -->
+                    <div class="mb-3">
+                        <label for="updateReservationDate" class="form-label">Select New Date</label>
+                        <input type="date" class="form-control" id="updateReservationDate" required>
+                    </div>
+                    <!-- Time input -->
+                    <div class="mb-3">
+                        <label for="updateReservationTime" class="form-label">Select New Time</label>
+                        <input type="time" class="form-control" id="updateReservationTime" required>
+                    </div>
+                    <!-- Category selection -->
+                    <div class="mb-3">
+                        <label for="updateReservationCategory" class="form-label">Select a Category</label>
+                        <select class="form-select" id="updateReservationCategory" required>
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="Professional Recording">Professional Recording</option>
+                            <option value="Mixing & Mastering">Mixing & Mastering</option>
+                            <option value="Rehearsal Space">Rehearsal Space</option>
+                            <option value="Podcast & Voiceover Recording">Podcast & Voiceover Recording</option>
+                        </select>
+                    </div>
+                    <!-- Include Sound Engineer Checkbox -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="updateIncludeEngineer">
+                        <label class="form-check-label" for="updateIncludeEngineer">Include Sound Engineer</label>
+                    </div>
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-success" onclick="updateReservation()">Update Reservation</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Deactivate Profile Modal -->
+<div class="modal fade" id="deactivateProfileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deactivation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to deactive your profile?</p>
+                <button class="btn btn-danger w-100" onclick="deactivateProfile()">Deactivate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
