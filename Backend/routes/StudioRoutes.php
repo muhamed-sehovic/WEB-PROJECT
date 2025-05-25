@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/StudioService.php';
+require_once __DIR__ . '/../data/roles.php';
 
 Flight::register('studioService', 'StudioService');
 
@@ -15,6 +16,7 @@ Flight::register('studioService', 'StudioService');
  * )
  */
 Flight::route('GET /studios', function() {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::studioService()->getAll());
 });
 
@@ -37,6 +39,7 @@ Flight::route('GET /studios', function() {
  * )
  */
 Flight::route('GET /studios/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::studioService()->getById($id));
 });
 
@@ -62,6 +65,7 @@ Flight::route('GET /studios/@id', function($id) {
  * )
  */
 Flight::route('POST /studios', function() {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::studioService()->add($data));
 });
@@ -94,6 +98,7 @@ Flight::route('POST /studios', function() {
  * )
  */
 Flight::route('PUT /studios/@id', function($id) {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::studioService()->update($id, $data));
 });
@@ -117,6 +122,7 @@ Flight::route('PUT /studios/@id', function($id) {
  * )
  */
 Flight::route('DELETE /studios/@id', function($id) {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::studioService()->delete($id);
     Flight::json(['message' => 'Studio deleted']);
 });

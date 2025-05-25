@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/ReservationService.php';
+require_once __DIR__ . '/../data/roles.php';
 
 Flight::register('reservationService', 'ReservationService');
 
@@ -15,6 +16,7 @@ Flight::register('reservationService', 'ReservationService');
  * )
  */
 Flight::route('GET /reservations', function() {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::reservationService()->getAll());
 });
 
@@ -37,6 +39,7 @@ Flight::route('GET /reservations', function() {
  * )
  */
 Flight::route('GET /reservations/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::reservationService()->getById($id));
 });
 
@@ -63,6 +66,7 @@ Flight::route('GET /reservations/@id', function($id) {
  * )
  */
 Flight::route('POST /reservations', function() {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::reservationService()->add($data));
 });
@@ -96,6 +100,7 @@ Flight::route('POST /reservations', function() {
  * )
  */
 Flight::route('PUT /reservations/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::reservationService()->update($id, $data));
 });
@@ -119,6 +124,7 @@ Flight::route('PUT /reservations/@id', function($id) {
  * )
  */
 Flight::route('DELETE /reservations/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::reservationService()->delete($id);
     Flight::json(['message' => 'Reservation deleted']);
 });
