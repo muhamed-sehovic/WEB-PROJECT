@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/EquipmentService.php';
+require_once __DIR__ . '/../data/roles.php';
 
 Flight::register('equipmentService', 'EquipmentService');
 
@@ -15,6 +16,7 @@ Flight::register('equipmentService', 'EquipmentService');
  * )
  */
 Flight::route('GET /equipment', function() {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::equipmentService()->getAll());
 });
 
@@ -37,6 +39,7 @@ Flight::route('GET /equipment', function() {
  * )
  */
 Flight::route('GET /equipment/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::equipmentService()->getById($id));
 });
 
@@ -61,6 +64,7 @@ Flight::route('GET /equipment/@id', function($id) {
  * )
  */
 Flight::route('POST /equipment', function() {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::equipmentService()->add($data));
 });
@@ -93,6 +97,7 @@ Flight::route('POST /equipment', function() {
  * )
  */
 Flight::route('PUT /equipment/@id', function($id) {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::equipmentService()->update($id, $data));
 });
@@ -116,6 +121,7 @@ Flight::route('PUT /equipment/@id', function($id) {
  * )
  */
 Flight::route('DELETE /equipment/@id', function($id) {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::equipmentService()->delete($id);
     Flight::json(['message' => 'Equipment deleted']);
 });

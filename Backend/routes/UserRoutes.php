@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/UserService.php';
+require_once __DIR__ . '/../data/roles.php';
 
 Flight::register('userService', 'UserService');
 
@@ -15,6 +16,7 @@ Flight::register('userService', 'UserService');
  * )
  */
 Flight::route('GET /users', function() {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::userService()->getAllUsers());
 });
 
@@ -41,6 +43,7 @@ Flight::route('GET /users', function() {
  * )
  */
 Flight::route('GET /user/email', function() {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $email = Flight::request()->query['email'];
     if (!$email) {
         Flight::halt(400, 'Email query parameter is required.');
@@ -138,6 +141,11 @@ Flight::route('POST /login', function() {
  * )
  */
 Flight::route('PUT /users/@id', function($id) {
+    $user = Flight::auth_middleware()->authenticate();
+    if ($user['role'] !== Roles::ADMIN && $user['id'] != $id) {
+        Flight::halt(403, 'Permission denied.');
+    }
+
     $data = Flight::request()->data->getData();
     Flight::json(Flight::userService()->update($id, $data));
 });
@@ -161,6 +169,11 @@ Flight::route('PUT /users/@id', function($id) {
  * )
  */
 Flight::route('DELETE /users/@id', function($id) {
+    $user = Flight::auth_middleware()->authenticate();
+    if ($user['role'] !== Roles::ADMIN && $user['id'] != $id) {
+        Flight::halt(403, 'Permission denied.');
+    }
+
     Flight::userService()->delete($id);
     Flight::json(['message' => 'User deleted']);
 });

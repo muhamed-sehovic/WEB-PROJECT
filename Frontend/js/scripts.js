@@ -29,31 +29,31 @@ $(document).ready(function () {
         timeOut: "3000"
     };
 
-    // Handle Login Form Submission
-$(document).on("submit", "#loginForm", function (event) {
-    event.preventDefault(); // Prevent actual form submission
+//     // Handle Login Form Submission
+// $(document).on("submit", "#loginForm", function (event) {
+//     event.preventDefault(); // Prevent actual form submission
 
-    var email = $("#loginEmail").val().trim();
-    var password = $("#loginPassword").val().trim();
+//     var email = $("#loginEmail").val().trim();
+//     var password = $("#loginPassword").val().trim();
 
-    if (email && password) {
-        toastr.success("Login successful! Redirecting...", "Success");
-        setTimeout(function () {
-            window.location.href = "#customer-dashboard"; // Redirect to customer dashboard
-        }, 1500);
-    } else {
-        toastr.error("Please fill in both fields.", "Login Failed");
-    }
-});
+//     if (email && password) {
+//         toastr.success("Login successful! Redirecting...", "Success");
+//         setTimeout(function () {
+//             window.location.href = "#customer-dashboard"; // Redirect to customer dashboard
+//         }, 1500);
+//     } else {
+//         toastr.error("Please fill in both fields.", "Login Failed");
+//     }
+// });
 
-$(document).ready(function () {
-    $(document).on("click", "#logoutBtn", function () {
-        toastr.info("Logging out...", "Logout");
-        setTimeout(function () {
-            window.location.hash = "#account"; // Redirect to login page
-        }, 1000);
-    });
-});
+// $(document).ready(function () {
+//     $(document).on("click", "#logoutBtn", function () {
+//         toastr.info("Logging out...", "Logout");
+//         setTimeout(function () {
+//             window.location.hash = "#account"; // Redirect to login page
+//         }, 1000);
+//     });
+// });
 
 
 // Handle Admin Login Form Submission
@@ -87,34 +87,34 @@ $(document).ready(function () {
 
 
 
-    // Handle Registration Form Submission
-    $(document).on("submit", "#registerForm", function (event) {
-        event.preventDefault(); // Prevent actual form submission
+    // // Handle Registration Form Submission
+    // $(document).on("submit", "#registerForm", function (event) {
+    //     event.preventDefault(); // Prevent actual form submission
 
-        var name = $("#registerName").val().trim();
-        var surname = $("#registerSurname").val().trim();
-        var email = $("#registerEmail").val().trim();
-        var birthDate = $("#registerBirthDate").val().trim(); // Ensure it matches the HTML ID exactly
-        var address = $("#registerAddress").val().trim();
-        var phone = $("#registerPhone").val().trim();
-        var password = $("#registerPassword").val().trim();
-        var confirmPassword = $("#registerConfirmPassword").val().trim();
+    //     var name = $("#registerName").val().trim();
+    //     var surname = $("#registerSurname").val().trim();
+    //     var email = $("#registerEmail").val().trim();
+    //     var birthDate = $("#registerBirthDate").val().trim(); // Ensure it matches the HTML ID exactly
+    //     var address = $("#registerAddress").val().trim();
+    //     var phone = $("#registerPhone").val().trim();
+    //     var password = $("#registerPassword").val().trim();
+    //     var confirmPassword = $("#registerConfirmPassword").val().trim();
 
-        if (!name || !surname || !email || !birthDate || !address || !phone || !password || !confirmPassword) {
-            toastr.error("Please fill in all fields.", "Registration Failed");
-            return;
-        }
+    //     if (!name || !surname || !email || !birthDate || !address || !phone || !password || !confirmPassword) {
+    //         toastr.error("Please fill in all fields.", "Registration Failed");
+    //         return;
+    //     }
 
-        if (password !== confirmPassword) {
-            toastr.error("Passwords do not match.", "Registration Failed");
-            return;
-        }
+    //     if (password !== confirmPassword) {
+    //         toastr.error("Passwords do not match.", "Registration Failed");
+    //         return;
+    //     }
 
-        toastr.success("Registration successful! Redirecting to login...", "Success");
-        setTimeout(function () {
-            window.location.hash = "#account"; // Redirect to login page after registration
-        }, 1500);
-    });
+    //     toastr.success("Registration successful! Redirecting to login...", "Success");
+    //     setTimeout(function () {
+    //         window.location.hash = "#account"; // Redirect to login page after registration
+    //     }, 1500);
+    // });
 
     // Handle Contact Form Submission
     $(document).on("submit", "#contactForm", function (event) {
