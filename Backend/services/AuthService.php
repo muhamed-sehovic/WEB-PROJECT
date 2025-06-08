@@ -19,28 +19,35 @@ class AuthService extends BaseService {
 
 
    public function register($entity) {  
-       if (empty($entity['email']) || empty($entity['password'])) {
-           return ['success' => false, 'error' => 'Email and password are required.'];
-       }
+    if (empty($entity['email']) || empty($entity['password'])) {
+        return ['success' => false, 'error' => 'Email and password are required.'];
+    }
 
+    $email_exists = $this->auth_dao->get_user_by_email($entity['email']);
+    if ($email_exists) {
+        return ['success' => false, 'error' => 'Email already registered.'];
+    }
 
-       $email_exists = $this->auth_dao->get_user_by_email($entity['email']);
-       if($email_exists){
-           return ['success' => false, 'error' => 'Email already registered.'];
-       }
+    // Sanitize and map required fields from entity
+    $user = [
+        'first_name' => $entity['first_name'] ?? '',
+        'last_name' => $entity['last_name'] ?? '',
+        'email' => $entity['email'],
+        'birth_date' => $entity['birth_date'] ?? date('1970-01-01'),
+        'address' => $entity['address'] ?? '',
+        'phone' => $entity['phone'] ?? '',
+        'password' => password_hash($entity['password'], PASSWORD_BCRYPT)
+    ];
 
+    // Save to DB
+    $inserted_user = parent::add($user);
 
-       $entity['password'] = password_hash($entity['password'], PASSWORD_BCRYPT);
+    // Remove password before sending response
+    unset($inserted_user['password']);
 
+    return ['success' => true, 'data' => $inserted_user];             
+}
 
-       $entity = parent::add($entity);
-
-
-       unset($entity['password']);
-
-
-       return ['success' => true, 'data' => $entity];             
-   }
 
 
    public function login($entity) {  

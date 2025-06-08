@@ -14,6 +14,18 @@ class BaseDao {
        $this->connection = Database::connect();
    }
 
+   protected function query($query, $params)
+    {
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    protected function query_unique($query, $params)
+    {
+        $results = $this->query($query, $params);
+        return reset($results);
+    }
 
    public function getAll() {
        $stmt = $this->connection->prepare("SELECT * FROM " . $this->table);
@@ -57,5 +69,24 @@ class BaseDao {
        $stmt->bindParam(':id', $id);
        return $stmt->execute();
    }
+   public function add($entity)
+    {
+        $query = "INSERT INTO " . $this->table_name . " (";
+        foreach ($entity as $column => $value) {
+            $query .= $column . ', ';
+        }
+        $query = substr($query, 0, -2);
+        $query .= ") VALUES (";
+        foreach ($entity as $column => $value) {
+            $query .= ":" . $column . ', ';
+        }
+        $query = substr($query, 0, -2);
+        $query .= ")";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute($entity);
+        $entity['id'] = $this->connection->lastInsertId();
+        return $entity;
+    }
 }
 ?>

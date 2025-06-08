@@ -8,8 +8,8 @@ class Config {
     public static function DB_NAME()    { return 'WEB-PROJECT'; }
     public static function DB_PORT()    { return 3306; }
     public static function DB_USER()    { return 'root'; }
-    public static function DB_PASSWORD(){ return 'hasomujo123'; }
-    public static function DB_HOST()    { return 'localhost'; }
+    public static function DB_PASSWORD(){ return 'muhamed123'; }
+    public static function DB_HOST()    { return 'localhost:3306'; }
 
     public static function JWT_SECRET() {
         return 'muhamed123'; 
@@ -23,7 +23,7 @@ class Database {
         if (self::$connection === null) {
             try {
                 self::$connection = new PDO(
-                    "mysql:host=" . Config::DB_HOST() . ";port=" . Config::DB_PORT() . ";dbname=" . Config::DB_NAME(),
+                    "mysql:host=" . Config::DB_HOST() . ";dbname=" . Config::DB_NAME(),
                     Config::DB_USER(),
                     Config::DB_PASSWORD(),
                     [

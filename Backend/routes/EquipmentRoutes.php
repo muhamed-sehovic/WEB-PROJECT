@@ -16,9 +16,9 @@ Flight::register('equipmentService', 'EquipmentService');
  * )
  */
 Flight::route('GET /equipment', function() {
-    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::equipmentService()->getAll());
 });
+
 
 /**
  * @OA\Get(
@@ -38,8 +38,7 @@ Flight::route('GET /equipment', function() {
  *     )
  * )
  */
-Flight::route('GET /equipment/@id', function($id) {
-    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
+ Flight::route('GET /equipment/@id', function($id) {
     Flight::json(Flight::equipmentService()->getById($id));
 });
 

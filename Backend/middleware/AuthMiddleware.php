@@ -6,7 +6,9 @@ class AuthMiddleware {
        if(!$token)
            Flight::halt(401, "Missing authentication header");
        $decoded_token = JWT::decode($token, new Key(Config::JWT_SECRET(), 'HS256'));
+
        Flight::set('user', $decoded_token->user);
+       //print_r($decoded_token->user);
        Flight::set('jwt_token', $token);
        return TRUE;
    }
@@ -18,14 +20,18 @@ class AuthMiddleware {
    }
    public function authorizeRoles($roles) {
        $user = Flight::get('user');
+    //    echo( $user);
+
        if (!in_array($user->role, $roles)) {
            Flight::halt(403, 'Forbidden: role not allowed');
-       }
+       }  
    }
    function authorizePermission($permission) {
        $user = Flight::get('user');
        if (!in_array($permission, $user->permissions)) {
            Flight::halt(403, 'Access denied: permission missing');
        }
-   }   
+   }  
+   
+   
 }

@@ -12,20 +12,10 @@
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-8 col-xl-6">
                     <form id="adminLoginForm">
-                        <!-- Admin ID input -->
-                        <div class="form-floating mb-3">
-                            <input class="form-control" id="adminId" type="text" placeholder="Enter your Admin ID" required />
-                            <label for="adminId">Admin ID</label>
-                        </div>
                         <!-- Email input -->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="adminEmail" type="email" placeholder="admin@example.com" required />
                             <label for="adminEmail">Email Address</label>
-                        </div>
-                        <!-- Security Key input -->
-                        <div class="form-floating mb-3">
-                            <input class="form-control" id="securityKey" type="password" placeholder="Enter your security key" required />
-                            <label for="securityKey">Security Key</label>
                         </div>
                         <!-- Password input -->
                         <div class="form-floating mb-3">
@@ -52,3 +42,7 @@
         </div>
     </div>
 </section>
+
+<script>
+    UserService.init();
+ </script>

@@ -7,7 +7,7 @@ $(document).ready(function () {
     app.route({ view: "home", load: "home.html" });
     app.route({ view: "about", load: "about.html" });
     app.route({ view: "contact", load: "contact.html" });
-    app.route({ view: "equipment", load: "equipment.html" });
+    // app.route({ view: "equipment", load: "equipment.html" });
     app.route({ view: "reservations", load: "reservations.html" });
     app.route({ view: "faq", load: "faq.html" });
     app.route({ view: "studio-overview", load: "studio-overview.html" });
@@ -16,6 +16,26 @@ $(document).ready(function () {
     app.route({ view: "register", load: "register.html" });
     app.route({ view: "customer-dashboard", load: "customer-dashboard.html" });
     app.route({ view: "admin-dashboard", load: "admin-dashboard.html" });
+    app.route({
+        view: "equipment",
+        load: "equipment.html",
+        onCreate: function () {
+            EquipmentService.getAll(function (equipmentList) {
+                const tbody = $("#equipmentTable tbody");
+                tbody.empty();
+
+                equipmentList.forEach(e => {
+                    tbody.append(`
+                        <tr>
+                            <td>${e.category}</td>
+                            <td>${e.model}</td>
+                            <td>${e.description}</td>
+                        </tr>
+                    `);
+                });
+            });
+        }
+    });
 
     
 
@@ -56,33 +76,33 @@ $(document).ready(function () {
 // });
 
 
-// Handle Admin Login Form Submission
-$(document).on("submit", "#adminLoginForm", function (event) {
-    event.preventDefault(); // Prevent actual form submission
+// // Handle Admin Login Form Submission
+// $(document).on("submit", "#adminLoginForm", function (event) {
+//     event.preventDefault(); // Prevent actual form submission
 
-    var adminId = $("#adminId").val().trim();
-    var email = $("#adminEmail").val().trim();
-    var securityKey = $("#securityKey").val().trim();
-    var password = $("#adminPassword").val().trim();
+//     var adminId = $("#adminId").val().trim();
+//     var email = $("#adminEmail").val().trim();
+//     var securityKey = $("#securityKey").val().trim();
+//     var password = $("#adminPassword").val().trim();
 
-    if (adminId && email && securityKey && password) {
-        toastr.success("Admin login successful! Redirecting...", "Success");
-        setTimeout(function () {
-            window.location.href = "#admin-dashboard"; // Redirect to admin dashboard
-        }, 1500);
-    } else {
-        toastr.error("Please fill in all fields.", "Login Failed");
-    }
-});
+//     if (adminId && email && securityKey && password) {
+//         toastr.success("Admin login successful! Redirecting...", "Success");
+//         setTimeout(function () {
+//             window.location.href = "#admin-dashboard"; // Redirect to admin dashboard
+//         }, 1500);
+//     } else {
+//         toastr.error("Please fill in all fields.", "Login Failed");
+//     }
+// });
 
-$(document).ready(function () {
-    $(document).on("click", "#logoutAdminBtn", function () {
-        toastr.info("Logging out...", "Logout");
-        setTimeout(function () {
-            window.location.hash = "#admin-login"; // Redirect to login page
-        }, 1000);
-    });
-});
+// $(document).ready(function () {
+//     $(document).on("click", "#logoutAdminBtn", function () {
+//         toastr.info("Logging out...", "Logout");
+//         setTimeout(function () {
+//             window.location.hash = "#admin-login"; // Redirect to login page
+//         }, 1000);
+//     });
+// });
 
 
 
@@ -116,6 +136,8 @@ $(document).ready(function () {
     //     }, 1500);
     // });
 
+
+    
     // Handle Contact Form Submission
     $(document).on("submit", "#contactForm", function (event) {
         event.preventDefault(); // Prevent actual form submission
@@ -138,52 +160,52 @@ $(document).ready(function () {
     });
 });
 
-// Handle Resevation Form Submission
-$(document).on("submit", "#reservationForm", function (event) {
-    event.preventDefault(); // Prevent actual form submission
+// // Handle Resevation Form Submission
+// $(document).on("submit", "#reservationForm", function (event) {
+//     event.preventDefault(); // Prevent actual form submission
 
-    var name = $("#reservationName").val().trim();
-    var surname = $("#reservationSurname").val().trim();
-    var email = $("#reservationEmail").val().trim();
-    var phone = $("#reservationPhone").val().trim();
-    var category = $("#reservationCategory").val().trim();
-    var date = $("#reservationDate").val().trim();
-    var time = $("#reservationTime").val().trim();
+//     var name = $("#reservationName").val().trim();
+//     var surname = $("#reservationSurname").val().trim();
+//     var email = $("#reservationEmail").val().trim();
+//     var phone = $("#reservationPhone").val().trim();
+//     var category = $("#reservationCategory").val().trim();
+//     var date = $("#reservationDate").val().trim();
+//     var time = $("#reservationTime").val().trim();
 
-    if (name === "" || surname === "" || email === "" || phone === "" || category === "" || date === "" || time === "") {
-        toastr.error("Please fill in all fields.", "Submission Failed");
-        return;
-    }
+//     if (name === "" || surname === "" || email === "" || phone === "" || category === "" || date === "" || time === "") {
+//         toastr.error("Please fill in all fields.", "Submission Failed");
+//         return;
+//     }
 
-    // Simulate form submission
-    setTimeout(function () {
-        toastr.success("Your reservation has been sent successfully!", "Success");
-        $("#reservationForm")[0].reset(); // Reset form fields
-    }, 500);
-});
+//     // Simulate form submission
+//     setTimeout(function () {
+//         toastr.success("Your reservation has been sent successfully!", "Success");
+//         $("#reservationForm")[0].reset(); // Reset form fields
+//     }, 500);
+// });
 
 
-// Toastr for Customer Dashboard
-function cancelReservation() {
-    toastr.success('Reservation canceled successfully!');
-    $('#cancelModal').modal('hide');
-}
+// // Toastr for Customer Dashboard
+// function cancelReservation() {
+//     toastr.success('Reservation canceled successfully!');
+//     $('#cancelModal').modal('hide');
+// }
 
-function saveProfile() {
-    toastr.success('Profile updated successfully!');
-}
-function makeReservation() {
-    toastr.success('Reservation added successfully!');
-    $('#makeReservationModal').modal('hide');
-}
-function updateReservation() {
-    toastr.success('Reservation updated successfully!');
-    $('#updateReservationModal').modal('hide');
-}
-function deactivateProfile() {
-    toastr.success('Profile deactivated successfully!');
-    $('#deactivateProfileModal').modal('hide');
-}
+// function saveProfile() {
+//     toastr.success('Profile updated successfully!');
+// }
+// function makeReservation() {
+//     toastr.success('Reservation added successfully!');
+//     $('#makeReservationModal').modal('hide');
+// }
+// function updateReservation() {
+//     toastr.success('Reservation updated successfully!');
+//     $('#updateReservationModal').modal('hide');
+// }
+// function deactivateProfile() {
+//     toastr.success('Profile deactivated successfully!');
+//     $('#deactivateProfileModal').modal('hide');
+// }
 
 
 
@@ -232,3 +254,71 @@ function removeEquipment() {
     toastr.error('Equipment removed successfully!');
     $('#removeEquipmentModal').modal('hide');
 }
+
+$(document).on("click", "#logoutBtn", function (e) {
+    e.preventDefault();
+    UserService.logout();
+  });
+  
+  
+    // Attach logout button event only if dashboard page is loaded
+    if ($("#logoutBtn").length) {
+      $("#logoutBtn").on("click", function (e) {
+        e.preventDefault();
+        UserService.logout();
+      });
+    }
+  ;
+// Delegate click event for admin logout button
+$(document).on("click", "#logoutAdminBtn", function (e) {
+    e.preventDefault();
+    UserService.adminLogout();
+});
+
+// Attach admin logout button event only if admin dashboard page is loaded and button exists
+if ($("#logoutAdminBtn").length) {
+    $("#logoutAdminBtn").on("click", function (e) {
+        e.preventDefault();
+        UserService.adminLogout();
+    });
+}
+
+
+
+$(document).ready(function () {
+    // User "My Account" link click handler
+    $('a[href="#account"]').on('click', function (e) {
+      const userToken = localStorage.getItem("user_token");
+      if (userToken && userToken !== "undefined") {
+        e.preventDefault();
+        window.location.hash = "#customer-dashboard";
+      }
+    });
+  
+    // Admin "Admin Login" link click handler
+    $('a[href="#account"]').on('click', function (e) {
+      const adminToken = localStorage.getItem("admin_token");
+      if (adminToken && adminToken !== "undefined") {
+        e.preventDefault();
+        window.location.hash = "#admin-dashboard";
+      }
+    });
+  });
+
+  $(document).on("click", "#saveProfileBtn", function (e) {
+    e.preventDefault();
+
+    const updatedUser = {
+        first_name: $("#dash_first_name").val(),
+        last_name: $("#dash_last_name").val(),
+        email: $("#dash_email").val(),
+        birth_date: $("#dash_birth_date").val(),
+        address: $("#dash_address").val(),
+        phone: $("#dash_phone").val()
+    };
+
+    UserService.updateUserProfile(updatedUser);
+});
+
+
+  

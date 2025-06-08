@@ -79,68 +79,19 @@
 
 
 <!-- Equipment Comparison Table -->
-<section class="container px-5 my-5">
+<section class="container px-5 my-5" id="equipmentTableSection">
     <h2 class="fw-bolder text-center mb-4">Compare Equipment</h2>
     <div class="table-responsive">
-        <table class="table table-bordered text-center">
+        <table class="table table-bordered text-center" id="equipmentTable">
             <thead class="bg-dark text-white">
                 <tr>
                     <th>Category</th>
                     <th>Model</th>
-                    <th>Features</th>
+                    <th>Description</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Microphones</td>
-                    <td>Shure SM7B</td>
-                    <td>Dynamic, Broadcast Quality</td>
-                </tr>
-                <tr>
-                    <td>Microphones</td>
-                    <td>Neumann U87</td>
-                    <td>Condenser, Studio Standard</td>
-                </tr>
-                <tr>
-                    <td>Microphones</td>
-                    <td>Rode NT1-A</td>
-                    <td>Condenser, Low Noise</td>
-                </tr>
-                <tr>
-                    <td>Microphones</td>
-                    <td>Shure SM58</td>
-                    <td>Dynamic, Vocal Performance</td>
-                </tr>
-                <tr>
-                    <td>Mixers</td>
-                    <td>Behringer X32</td>
-                    <td>32 Channels, Digital FX</td>
-                </tr>
-                <tr>
-                    <td>Mixers</td>
-                    <td>Yamaha MG10XU</td>
-                    <td>10 Channels, USB Interface</td>
-                </tr>
-                <tr>
-                    <td>Mixers</td>
-                    <td>Soundcraft Signature 12</td>
-                    <td>12 Channels, Built-in Lexicon FX</td>
-                </tr>
-                <tr>
-                    <td>Instruments</td>
-                    <td>Fender Stratocaster</td>
-                    <td>Electric Guitar, Single-Coil Pickups</td>
-                </tr>
-                <tr>
-                    <td>Instruments</td>
-                    <td>Yamaha P-125 Digital Piano</td>
-                    <td>88 Keys, Weighted Action</td>
-                </tr>
-                <tr>
-                    <td>Instruments</td>
-                    <td>Pearl Drum Kit</td>
-                    <td>5-Piece Acoustic Drum Set</td>
-                </tr>
+                <!-- Equipment rows will be inserted here by JS -->
             </tbody>
         </table>
     </div>
@@ -153,3 +104,8 @@
         transition: 0.3s ease-in-out;
     }
 </style>
+
+<script>
+    EquipmentService.init();
+ </script>
+
