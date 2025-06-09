@@ -14,12 +14,12 @@
                     <form id="registerForm">
                         <!-- Name input -->
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="registerName" type="text" placeholder="Enter your name" required />
+                            <input class="form-control" id="registerName" type="text" placeholder="Enter your name" name = "first_name" required />
                             <label for="registerName">First Name</label>
                         </div>
                         <!-- Surname input -->
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="registerSurname" type="text" placeholder="Enter your surname" required />
+                            <input class="form-control" id="registerSurname" type="text" placeholder="Enter your surname" name = "last_name" required />
                             <label for="registerSurname">Last Name</label>
                         </div>
                         <!-- Email input -->
@@ -67,10 +67,10 @@
     </div>
 </section>
 
-<script src="utils/constants.js"></script>
+<!-- <script src="utils/constants.js"></script>
 <script src="utils/rest-client.js"></script>
 <script src="utils/utils.js"></script>
-<script src="services/user-service.js"></script>
+<script src="services/user-service.js"></script> -->
 <script>
     UserService.init();
  </script>

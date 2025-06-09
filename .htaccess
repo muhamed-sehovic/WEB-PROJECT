@@ -1,10 +1,8 @@
 RewriteEngine On
 
-# Allow access to common static files
 RewriteCond %{REQUEST_URI} \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ [NC]
 RewriteRule ^ - [L]
 
-# If not a file or directory, redirect to index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]

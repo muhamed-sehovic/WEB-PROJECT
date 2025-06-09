@@ -29,20 +29,29 @@ Flight::register('reservationService', 'ReservationService');
 Flight::register('reviewService', 'ReviewService');
 Flight::register('auth_middleware', 'AuthMiddleware');
 
-// Apply JWT token verification globally
+// Apply JWT token verification globally, except for public routes
 Flight::route('/*', function () {
     $path = Flight::request()->url;
+    $method = Flight::request()->method;
 
-    if (
-        strpos($path, '/auth/login') === 0 ||
-        strpos($path, '/auth/register') === 0
-    ) {
-        return true; // Public endpoints
+    $publicRoutes = [
+        ['method' => 'GET', 'path' => '/equipment'],
+        ['method' => 'GET', 'path' => '/equipment/*'],
+        ['method' => 'POST', 'path' => '/auth/login'],
+        ['method' => 'POST', 'path' => '/auth/register']
+    ];
+
+    foreach ($publicRoutes as $route) {
+        if (
+            $method === $route['method'] &&
+            fnmatch($route['path'], $path)
+        ) {
+            return true;
+        }
     }
 
     try {
         $token = Flight::request()->getHeader("Authentication");
-
         if (Flight::auth_middleware()->verifyToken($token)) {
             return true;
         }

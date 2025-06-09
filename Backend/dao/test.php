@@ -15,11 +15,11 @@ $newReservation = [
 ];
 
 // ✅ INSERT the reservation
-$insertResult = $reservationDao->insert($newReservation);
+/* $insertResult = $reservationDao->insert($newReservation);
 echo "<h3>Insert Result:</h3><pre>";
 echo $insertResult ? 'Insert successful' : 'Insert failed';
 echo "</pre>";
-
+ */
 // ✅ FETCH all reservations
 $reservations = $reservationDao->getAll();
 echo "<h3>All Reservations:</h3><pre>";

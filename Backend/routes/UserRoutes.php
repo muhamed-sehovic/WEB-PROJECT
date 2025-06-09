@@ -141,14 +141,27 @@ Flight::route('POST /login', function() {
  * )
  */
 Flight::route('PUT /users/@id', function($id) {
-    $user = Flight::auth_middleware()->authenticate();
-    if ($user['role'] !== Roles::ADMIN && $user['id'] != $id) {
+    $token = Flight::request()->getHeader('Authentication');
+    if (!$token) {
+        Flight::halt(401, 'Missing Authorization header');
+    }
+    
+    // This decodes the token and sets the user in Flight
+    Flight::auth_middleware()->verifyToken($token);
+    
+    $user = Flight::get('user');
+    if (!$user) {
+        Flight::halt(401, 'Unauthorized');
+    }
+
+    if ($user->role !== Roles::ADMIN && $user->id != $id) {
         Flight::halt(403, 'Permission denied.');
     }
 
     $data = Flight::request()->data->getData();
     Flight::json(Flight::userService()->update($id, $data));
 });
+
 
 /**
  * @OA\Delete(
@@ -176,4 +189,83 @@ Flight::route('DELETE /users/@id', function($id) {
 
     Flight::userService()->delete($id);
     Flight::json(['message' => 'User deleted']);
+});
+
+/**
+ * @OA\Get(
+ *     path="/users/me",
+ *     tags={"users"},
+ *     summary="Get current logged in user profile",
+ *     security={{"api_key":{}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Current user profile"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized"
+ *     )
+ * )
+ */
+Flight::route('GET /users/me', function() {
+    $token = Flight::request()->getHeader('Authentication');
+    if (!$token) {
+        Flight::halt(401, 'Missing Authorization header');
+    }
+
+    Flight::auth_middleware()->verifyToken($token);
+    $user = Flight::get('user');
+
+    if (!$user) {
+        Flight::halt(401, 'Unauthorized');
+    }
+
+    Flight::json($user);
+});
+
+/**
+ * @OA\Put(
+ *     path="/users/me",
+ *     tags={"users"},
+ *     summary="Update current logged in user profile",
+ *     security={{"api_key":{}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             @OA\Property(property="first_name", type="string", example="UpdatedFirstName"),
+ *             @OA\Property(property="last_name", type="string", example="UpdatedLastName"),
+ *             @OA\Property(property="email", type="string", example="updated@example.com"),
+ *             @OA\Property(property="birth_date", type="string", format="date", example="1990-01-01"),
+ *             @OA\Property(property="address", type="string", example="123 Street Name"),
+ *             @OA\Property(property="phone", type="string", example="+1234567890")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="User updated successfully"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized"
+ *     )
+ * )
+ */
+Flight::route('PUT /users/me', function() {
+    $token = Flight::request()->getHeader('Authentication');
+    if (!$token) {
+        Flight::halt(401, 'Missing Authorization header');
+    }
+
+    Flight::auth_middleware()->verifyToken($token);
+    $user = Flight::get('user');
+
+    if (!$user) {
+        Flight::halt(401, 'Unauthorized');
+    }
+
+    $data = Flight::request()->data->getData();
+
+    $updatedUser = Flight::userService()->update($user->id, $data);
+
+    Flight::json($updatedUser);
 });
